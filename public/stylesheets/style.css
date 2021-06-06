@@ -1,0 +1,679 @@
+/*-------------Book container------------*/
+
+.query-books {
+  border: none;
+}
+
+.book-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1em;
+  height: fit-content;
+  justify-content: space-evenly;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.book-box {
+  max-width: min(20%,300px);
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  perspective: 3000px;
+  justify-content: space-between;
+}
+
+.book-link {
+  transform-style: preserve-3d;
+  transform: rotateY(25deg);
+  transition: transform .5s;
+  box-shadow: -15px 5px 20px -7px rgba(0,0,0,0.3);
+
+}
+
+.book-image:hover ~ .icon-box{
+  display: block;
+}
+
+.book-image {
+  width: 100%;
+  display: block;
+}
+
+.book-edge {
+  width: 1.5em;
+  height: 99.7%;
+  position: absolute;
+  top: .3%;
+  right: 98%;
+  background-color: black;
+  transform: rotateY(-70deg);
+  transition: transform .5s;
+  overflow: hidden;
+}
+
+.book-edge img{
+  object-fit: cover;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  transform: scale(1.1);
+}
+
+.book-link:hover .book-image{
+  display: block;
+  opacity: 1;
+}
+
+.book-link:hover{
+  display: block;
+  opacity: 1;
+  transform: rotateY(0deg);
+  box-shadow: -3px 5px 20px -7px rgba(0,0,0,0.3);
+  transition: box-shadow .5s;
+}
+
+.book-link:hover .book-edge{
+  right: 95%;
+  transform: rotateY(-90deg);
+}
+
+.book-info{
+  width: 100%;
+  height: 25%;
+  text-align: center;
+  font-size: 1em;
+  line-height: 150%;
+  padding: 0.8em 0;
+  justify-content: flex-start;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+}
+
+
+
+.book-info .book-title:hover {
+  color:rgb(112, 110, 110);
+}
+
+.red-link {
+  color:rgb(167, 11, 11);
+  text-decoration: none;
+}
+
+.red-link:hover {
+  color:rgb(0, 0, 0);
+}
+
+/*Prev and next navigation*/
+
+#new-books-container .book-box, #bestsellers-container .book-box {
+  display: none;
+}
+
+#new-books-container .book-box.displayed-book, #bestsellers-container .book-box.displayed-book {
+  display: flex;
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: calc(40% - 1em);
+  font-size: 1.5em;
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 100%;
+  background-color: rgb(238, 236, 236);
+  color: white;
+  outline: none;
+}
+
+.prev-btn:hover, .next-btn:hover {
+  background-color: rgb(138, 33, 33);
+  color: white;
+}
+
+.prev-btn {
+  left: -1em;
+}
+
+.next-btn {
+  right: -1em;
+}
+
+.btn-div {
+  display: contents;
+}
+
+@media screen and (max-width: 1024px) {
+
+  .mobile-filters{
+    display: none;
+  }
+
+  .mobile-filters-btn{
+    border: none;
+    background-color: white;
+  }
+  .mobile-filters.activate-filters{
+    display: block;
+    position: absolute;
+    z-index: 120;
+    background-color: rgba(255, 255, 255, 0.328);
+    opacity: 1;
+  }
+
+  .btn-div {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+  }
+
+  .prev-btn, .next-btn {
+    position: static;
+    border-radius: 0;
+  }
+
+  .book-box {
+    min-width: 150px;
+    max-width: max(20%, 300px);
+  }
+    
+  .horizontal-div #mobile-version-banners {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1vw;
+    margin: 4vw;
+    display: flex;
+  }
+
+  #mobile-version-banners img {
+    width: 100%;
+  }
+
+  .touch-device .book-image {
+    transform: rotateY(0);
+    box-shadow: none;
+  }
+
+  .solo-writer p {
+    min-height: 0 !important;
+  }
+  
+  .horizontal-div .second-main {
+    width: 100% !important;
+  }
+
+  .directory {
+    margin-left: 2em;
+  }
+
+  .news-tab-article {
+    border-top: none;
+  }
+
+  .news-tab-article h1 {
+    position: static;
+    margin: .5em auto 0;
+  }
+
+  .news-tab-article .article-img {
+    margin-bottom: 1em;
+  }
+
+  #tab-background #tab-img{
+    height: 35vw !important;
+  }
+}
+
+/*Icon boxes*/
+
+.icon-box {
+  position: absolute;
+  top: .5em;
+  left: calc(50% - 2.5em);
+  display: none;
+  text-shadow: rgb(253, 253, 253) 0px 0px 10px;
+}
+
+.icon-box input {
+  display: none;
+}
+
+.icon-box label{
+  color: #000000;
+  cursor: pointer;
+  font-size: 2.25em;
+}
+
+.icon-box button{
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  font-size: 2.5em;
+  outline: none;
+  text-shadow: white 0px 0px 10px;
+}
+  
+.icon-box label:hover, button:hover{
+  color: darkgrey;
+}
+  
+.icon-box button:active{
+  color: red;
+}
+
+.book-link:hover .icon-box{
+  display: block;
+}
+
+.icon-box input:checked + label {
+  color: red;
+}
+
+#product-added-alert{
+  display: none;
+  position: fixed;
+  width: 50%;
+  bottom: 2em;
+  padding: 1.5em;
+  border: rgb(206, 113, 59) solid 3px;
+  z-index: 10;
+  left: calc(25% - 1.5em);
+  background-color: white;
+  text-align: center;
+}
+
+
+/* -------book details---------- */
+
+.article-cover{
+  float: left;
+  max-width: 30%;
+  padding: 1.5em 1.5em 1.5em 0;
+}
+
+.book-general{
+  display: flex;
+}
+
+
+/*-------News Container (at homepage)----------*/
+#news-container {
+  display: flex;
+  gap: 3em;
+  flex-wrap: wrap;
+}
+
+#news-container article {
+  margin: 3em auto;
+  width: calc(50% - 1.5em);
+}
+
+.shortened::after {
+  content: "...";
+}
+
+#news-container button {
+  border: none;
+  background: radial-gradient(circle, rgb(240, 240, 240) 79%,
+    rgb(223, 223, 223) 100%, rgb(221, 221, 221) 100%);
+  border-radius: 5px;
+  padding: .3em 1em;
+  margin-bottom: 1em;
+  float: right;
+  outline: none;
+}
+
+#news-container button:hover {
+  background: radial-gradient(circle, rgb(240, 240, 240) 79%,
+    rgb(194, 194, 194) 100%, rgb(221, 221, 221) 100%);
+  color: rgb(80, 27, 27);
+}
+
+article {
+  margin-top: 3em;
+  border-top: solid 1px grey;
+}
+
+article h1 {
+  position: relative;
+  top: -1.5em;
+  left: calc(50% - 5em);
+  background-color: white;
+  width: 10em;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+    
+.pretty::first-letter{
+  float: left;
+  padding-right: .1em;
+  line-height: 1em;
+  color: rgb(94, 8, 8);
+  font-size: 60px;
+}
+
+.pretty {
+  margin-top: 0;
+  text-align:justify;
+}
+
+/*----About us (house.html)-----*/
+.horizontal-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.horizontal-div .second-main {
+  width: 60%;
+  margin: 2em auto;
+}
+
+#side-nav {
+  width: 25%;
+}
+
+.horizontal-div #banner-div{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 2em;
+  position: relative;
+}
+
+#mobile-version-banners {
+  display: none;
+}
+
+/*----------Polaroid effect------------*/
+
+@media screen and (min-width: 1024px) {
+  .polaroid {
+    background-color: white;
+    border: rgb(219, 215, 215) 1px solid;
+    width: 100%;
+    height: min(20vw, 400px);
+    box-shadow: -15px 5px 20px -7px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  .mobile-filters-btn {
+    display: none;
+  }
+
+  .mobile-filters{
+    display: none;
+  }
+
+
+  #polaroid1 {
+    transform:rotate(-4deg);
+  }
+
+  #polaroid3{
+    transform:rotate(4deg);
+  }
+
+  .polaroid img {
+    position: relative;
+    top: 8%;
+    max-width: 95%;
+    margin: 0 2.5%;
+  }
+
+  #banner-div .polaroid .pin {
+    width: 2.1em;
+    position: absolute;
+    top:0;
+    left: calc(50% - 1.5em);
+  }
+}
+
+/*---------Tab background------------*/
+#tab-background img{
+  width: 100%;
+  display: block;
+}
+
+#tab-background a{
+  width: 0;
+}
+
+#tab-background {
+  width: 100%;
+  background-color: white;
+  position: relative;
+}
+
+#tab-background h1{
+  color: rgb(236, 236, 236);
+  position: absolute;
+  bottom:0;
+  right: 10%;
+  font-size: min(5vw, 60px);
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: black 2px 2px 4px;
+}
+
+#tab-background div {
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:linear-gradient(rgba(187, 187, 187, 0.075), black);
+}
+
+#tab-background .img-on-top{
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 35%;
+}
+
+/*---------------------- Solo book------------------ */
+.solo-book {
+  border: none;
+}
+
+.main-info{
+  display: flex;
+}
+
+.solo-book .left {
+  width: 50%;
+  text-align: left;
+}
+
+.solo-book .right {
+  width: 50%;
+  text-align: right;
+}
+
+.left h1, .left h3{
+  position: static;
+  text-align: left;
+}
+
+.right h1, .right h3{
+  position: static;
+  text-align: right;
+  width: auto;
+}
+
+.solo-book table {
+  position: relative;
+  padding-top: 1em;
+  width: 100%;
+  border-top: lightgrey solid 2px;
+  margin-top: 5em;
+  line-height: 2em;
+}
+
+.solo-book th{
+  position: absolute;
+  top: -1em;
+  left: 0em;
+  background-color: white;
+  color: rgb(173, 173, 173);
+  font-size: 1.2em;
+}
+
+.solo-book tr{
+  padding: 10em;
+}
+
+.solo-book img{
+  padding-bottom: 1em;
+}
+
+/* ----------------Tab-Background------------------ */
+#tab-background #tab-img{
+  width: 100%;
+  height: 20vw;
+  object-fit: cover;
+}
+
+/* -------------------Filter form-------------------- */
+#side-nav form label {
+  font-size: 1.15em;
+}
+
+#side-nav form input {
+  font-size: 3em;
+  background-color: black !important;
+}
+
+/* --------------Boxes with lightgrey header------------------ */
+.info-box {
+  position: relative;
+  padding-top: 2em;
+  width: 100%;
+  border-top: lightgrey solid 2px;
+  margin-top: 5em;
+  line-height: 2em;
+}
+
+.info-box-header{
+  position: absolute;
+  top: -1.7em;
+  left: 0em;
+  background-color: white;
+  color: rgb(173, 173, 173);
+  font-size: 1.2em;
+}
+
+/* -----------------Writers tab-------------------- */
+.query-writers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  border: none;
+  justify-content: center;
+  align-content: center;
+}
+
+.query-writers img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.query-writers .red-link {
+  flex-wrap: wrap;
+}
+
+.query-writers div {
+  width: 150px;
+}
+
+/* -----------------Solo Writer tab-------------------- */
+
+.solo-writer .article-img {
+  height: 300px;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+}
+
+.solo-writer {
+  border: none;
+}
+
+.solo-writer h1{
+  position: static;
+  margin-bottom: 1em;
+  text-align: left;
+}
+
+.solo-writer p {
+  min-height: 300px;
+}
+
+.solo-writer .info-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ----------------------Page directory------------------------ */
+
+.directory {
+  font-size: .8em;
+}
+
+.directory a {
+  color: rgb(177, 176, 180);
+}
+
+.directory a:hover {
+  color: rgb(117, 117, 117);
+}
+
+/* -------------------News tab-------------------- */
+.news-tab-article {
+  min-height: 400px;
+  font-size: .9em;
+  margin-bottom: 5vw;
+}
+
+.news-tab-article h1 {
+  left: 0;
+  width: fit-content;
+}
+
+/* --------------Page Numbers---------------- */
+.page-numbers {
+  display: flex;
+  gap: 1em;
+  width: 100%;
+  justify-content: center;
+  margin: 1em;
+}
+
+.page-numbers div:hover {
+  color: rgb(30, 136, 30);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ------------------------------- pageNums---------------------------------------- */
+.curPage {
+  font-weight: bold;
+  color: rgb(167, 10, 10);
+}

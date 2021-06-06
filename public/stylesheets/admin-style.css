@@ -1,0 +1,345 @@
+/*-----------------CSS for admin side---------------*/
+
+  section {
+    margin: 2em auto 1em auto;
+  }
+  
+  .centered{
+    text-align: center;
+  }
+  
+  .admin-table{
+    margin: auto;
+    font-size: 1em;
+  }
+  
+  .admin-table td {
+    width: 10em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+  }
+  
+  .admin-table td button img{
+    width: 16px;
+  }
+  
+  .admin-table td button{
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    line-height: 4em;
+    background-color: transparent;
+  }
+  
+  .admin-table tr:nth-child(odd){background-color: #f2f2f2;}
+  .admin-table tr:hover {background-color: #ddd;}
+  
+  .admin-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #a1a1a1;
+    color: white;
+  }
+  
+  .admin-post{
+    padding: 2em;
+    align-self: center;
+  }
+  
+  .edit:hover{
+    background-color: rgb(178, 210, 236);
+  }
+  
+  .delete:hover{
+    background-color: rgb(192, 81, 81);
+  }
+  
+  .admin-buttons{
+    padding: 1em;
+    text-align: center;
+  }
+  
+  .admin-buttons button{
+    background: black;
+    padding: .5em 1em;
+    font-size: .8em;
+    border: none;
+    margin:.5em;
+    color: white;
+  }
+
+  .admin-buttons button:hover{
+    background-color: crimson;
+    cursor: pointer;
+  }
+
+
+  .admin-form {
+    margin: auto;
+    width: 95%;
+  }
+  
+  .admin-form label{
+    margin-top: 8px;
+    font-weight: bold;
+    margin-right: 0.3em;
+  }
+  
+  .admin-form input[type=text], 
+  .admin-form input[type=password], 
+  .admin-form input[type=email],
+  .admin-form input[type=number],
+  .admin-form select, .admin-form textarea{
+    width: 100%;
+    font-size: 1em;
+    padding: 8px 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+
+
+  .admin-form input[type=submit] {
+    font-size: 1.1em;
+    background-color: #f1c387;
+    color: rgb(2, 2, 2);
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .admin-form input[type=submit]:hover {
+    background-color: #c7975a;
+  }
+
+  /* Added from main-style */
+
+  body {
+    background-image: url("/images/background.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    color: black;
+    margin: auto;
+    width: 100vw;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 3px 61px -7px rgba(0,0,0,0.82);
+    min-height: 100vh;
+  }
+
+  button:active{
+    outline: none;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  main {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+
+  h2 {
+    color:rgb(112, 110, 110);
+    font-size: 1.4em;
+  }
+
+  .logo_img {
+    width: 7em;
+    padding: 0.4em 1em;
+  } 
+  
+  .not-displayed{
+    display: none;
+  }
+
+   /*---------------Admin navigation bar-------------*/
+  
+   #admin-nav {
+    padding: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.281), rgba(0, 0, 0, 0.712));
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 0;
+    font-size: 1em;
+    justify-content: space-evenly;
+    align-content: flex-end;
+  }
+
+  #admin-nav ul {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    vertical-align: middle;
+    list-style: none;
+    line-height: 2;
+    justify-content: space-evenly;
+    text-align: center;
+    min-width: 70%;
+    align-content: flex-end;
+  }
+  
+  #admin-nav a {
+    color: white;
+  }
+  
+  #admin-nav a:hover{
+    color: crimson;
+    transition: color .5s;
+  }
+
+  #selected {
+    background-color: #ffffff;
+    color: rgb(17, 17, 17) !important;
+    padding: 5px 10px 10px!important;
+    border-radius: 7px 7px 0 0;
+  }
+
+
+  /* form pop up */
+
+  .PopUpForm {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+  }
+
+  .PopUpForm > div {
+    width: min(80vw, 500px);
+    position: relative;
+    margin: 1% auto;
+    padding: 10px;
+    border-radius: 10px;
+    background: white;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x:hidden;
+    font-size: .7em;
+  }
+
+  .title {
+    color:rgb(221, 127, 93);
+    text-align: center;
+    padding: 0;
+    font-size: 1.4em;
+  }
+  
+  .close-btn {
+    background: transparent;
+    border: none;
+    position: absolute;
+    left: calc(100% - 1em);
+    top: 0;
+    font-size: 1.8em;
+    outline: none;
+  }
+
+  .close-btn:hover {
+    color: rgb(197, 41, 41);
+  }
+
+  #submit {
+    text-align: center;
+  }
+
+/* flex input */
+
+.FlexInput {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+.FlexInput label {
+  width: max( calc(50% - 0.3em ) , 220px);
+  flex-grow: 1;
+}
+  /*  book-ebook */
+
+  #Ebookbtns {
+    padding: 0;
+  }
+  .ebookbtn {
+    background-color: white;
+    border: none;
+    font-size: 1em;
+    color:yellowgreen;
+  }
+
+  .ebookbtn:hover{
+    color:rgb(52, 56, 52);
+  }
+   /*-------------Footer---------------*/
+   footer{
+    background-color: lightgrey;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    color: ivory;
+  }
+
+  footer div{
+    margin: auto;
+  }
+
+  footer a:hover{
+    opacity: 0.7;
+  }
+
+
+  /* tbody on small screens */
+  @media screen and (max-width: 600px) {
+  tbody{
+    display:block;
+    overflow:auto;
+    width:calc(90vw - 100px);
+  }
+  thead tr{
+    display:block;
+  }
+
+  body {
+    width: 100%;
+  }
+
+  #admin-nav {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  #selected {
+    border-radius: 0;
+  }
+
+  #admin-nav ul{
+    gap: .7em;
+    font-size: .9em;
+  }
+}
+
+
+

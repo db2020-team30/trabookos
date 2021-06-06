@@ -1,0 +1,153 @@
+/*-----------Slideshow----------*/
+  #slideshow {
+    position: relative;
+    display: block;
+  }
+  
+  #slideshow a {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div.slide {
+    height: 30vw;
+    z-index: -1;
+    background-color: white;
+  }
+  
+  .slide {
+    margin: auto;
+    width: min(85vw, 1700px);
+    overflow: hidden;
+  }
+
+  .slide-background {
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.97;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    transform: scale(1.1);
+  }
+
+  .slide-book {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    max-height: 100%;
+    max-width: 30%;
+    left: 12%;
+  }
+
+  .slide-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 10%;
+    left: 50%;
+    height: 60%;
+    width: 40%;
+    color: white;
+    text-align: right;
+    font-size: max(15px,2.5vw);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:530;
+    text-shadow: black 1px 1px 1px;
+  }
+
+  .subtext {
+    white-space: nowrap;
+    font-size: .9em;
+    color: rgb(128, 22, 15);
+  }
+
+  #slideshow .get-it-btn {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .get-it-btn button {
+    background-color: rgba(0, 0, 0, 0.11);
+    color: white;
+    border: white solid 1px;
+    width: 100%;
+    font-size: max(15px,2vw);
+    letter-spacing: .1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  .get-it-btn button:hover {
+    color: lightsalmon;
+    z-index: 100000;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .slide {
+      margin: auto;
+      width: 100%;
+    }
+
+    #pos-div {
+      top: 100%;
+    }
+
+    #slideshow .slide-div {
+      border: grey solid 1px;
+      border-radius: 100%;
+      width: 1em;
+      height: .9em;
+    }
+
+    main {
+      padding-top: 3em;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .slide {
+      height: 50vw !important;
+    }
+
+    .slide-book {
+      max-width: 50%;
+      left: 7%;
+    }
+  }
+  
+  #slideshow .hidden .slide {
+    display: none;
+  }
+
+  #slideshow .hidden .slide:nth-child(n) {
+    display: none;
+  }
+  
+  #pos-div {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 5em);
+    width: 10em;
+  }
+  
+  .slide-div:hover {
+    cursor: pointer;
+  }
+  
+  .slide-div {
+    height: .5em;
+    width: .5em;
+    background-color: white;
+    margin: .5em;
+  }
+  
+  .slide-div.selected {
+    background-color: rgb(94, 8, 8);
+  }
