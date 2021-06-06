@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="el">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+        {{#if specificItem}}
+            {{specificItem}} 
+        {{/if}}
+        {{#unless specificItem}}
+            {{#if category}}
+                {{category}} 
+            {{/if}}
+            {{#unless category}}
+                {{#if pageName}}
+                    {{pageName}} 
+                {{/if}}
+                {{#unless pageName}} 
+                    Ο Εκδοτικός Οίκος
+                {{/unless}}
+            {{/unless}} 
+        {{/unless}} | Εκδόσεις TraBOOKos</title>
+  <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/main-style.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/slideshow.css" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/png" href="/images/icon.png"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    {{> header}}
+
+    {{!-- Εκτός από το homepage και τη σελίδα που δείχνει μεμονωμένο κάποιο βιβλίο, οι υπόλοιπες έχουν μία εικόνα (tabImage) για background, --}}
+    {{!-- μαζί με τον τίτλο τους --}}
+    {{#if tabImage}}
+        <div id="tab-background">
+            <img src={{tabImage}} id="tab-img">
+            {{!-- Το επόμενο div χρησιμεύει για την σκίαση της εικόνας, μπαίνει δηλαδή ως overlay --}}
+            <div></div>
+            {{!-- Η σελίδα "Ο Εκδοτικός μας Οίκος" δεν έχει pageName και στην θέση του μπαινει το logo --}}
+            {{#if pageName}}
+                <h1>{{pageName}}</h1>
+            {{/if}}
+            {{#unless pageName}}
+                <img class="img-on-top" src="/images/trabookos_mobile.png">
+            {{/unless}}
+        </div> 
+    {{/if}}
+
+    <main class="horizontal-div">
+    <div id="side-nav">
+        
+        {{>sidebar-banners filters}}
+        {{#if books}} 
+            {{#unless filtersOff}}
+            <h4>ΦΙΛΤΡΑ ΑΝΑΖΗΤΗΣΗΣ</h4>
+            <form method='GET' id="formFilters" onchange="this.submit()">
+                {{#if greek_lit}}
+                    <input type="checkbox" id="greek" name="Ελληνικά|original_lang">
+                    <label for="greek">Ελληνική Λογοτεχνία</label>
+                    <br>
+                {{/if}}
+                {{#if world_lit}}
+                    <input type="checkbox" id="foreign" name="foreign|original_lang">
+                    <label for="foreign">Παγκόσμια Λογοτεχνία</label>
+                {{/if}}
+
+                {{#if categories}}
+                    <h5>Κατηγορία</h5>
+                {{/if}}
+                {{#each categories}}
+                <input type="checkbox" id={{this.id}} name={{this.id}}|category>
+                <label for={{this.id}}>{{this.category}}</label>
+                <br>
+                {{/each}}
+
+                {{#if ages}}
+                    <h5>Ηλικιακή ομάδα</h5>
+                {{/if}}
+                {{#each ages}}
+                <input type="checkbox" id={{this.id}} name={{this.id}}|age>
+                <label for={{this.id}}>{{this.age}}</label>
+                <br>
+                {{/each}}
+
+
+                {{#if genres}}
+                    <h5>Είδος</h5>
+                {{/if}}
+                {{#each genres}}
+                <input type="checkbox" id={{this.id}} name={{this.id}}|genre>
+                <label for={{this.id}}>{{this.genre}}</label>
+                <br>
+                {{/each}}
+
+                {{#if subjects}}
+                    <h5>Θεματική Κατηγορία</h5>
+                {{/if}}
+                {{#each subjects}}
+                <input type="checkbox" id={{this.id}} name={{this.id}}|subj>
+                <label for={{this.id}}>{{this.subj}}</label>
+                <br>
+                {{/each}}
+
+                {{#if series}}
+                    <h5>Λογοτεχνική Σειρά</h5>
+                {{/if}}
+                {{#each series}}
+                <input type="checkbox" id={{this.id}} name={{this.id}}|series>
+                <label for={{this.id}}>{{this.series}}</label>
+                <br>
+                {{/each}}
+
+                {{#if desimo}}
+                    <h5>Εξώφυλλο</h5>
+                {{/if}}
+                {{#each desimo}}
+                <input type="checkbox" id={{this.id}} name={{this.id}}|desimo>
+                <label for={{this.id}}>{{this.desimo}}</label>
+                <br>
+                {{/each}}
+            </form>
+            {{/unless}}
+         {{/if}}
+        <div id="banner-div">
+            <div class="polaroid" id="polaroid1"><img src="/images/pin.png" class="pin"><a href="/news"><img src="/images/banner1.png"></a></div>
+            <div class="polaroid" id="polaroid2"><img src="/images/pin.png" class="pin"><a href="/sales"><img src="/images/banner2.jpg"></a></div>
+            <div class="polaroid" id="polaroid3"><img src="/images/pin.png" class="pin"><a href="/"><img src="/images/banner3.jpg"></a></div>
+        </div>
+    </div>
+        <div class='second-main'>
+            <span class="directory"> 
+                <a href="/">Αρχική</a> > 
+                {{#if category}} 
+                    <a href="{{baseUrl}}"> 
+                {{/if}} 
+                    {{#unless pageName}} 
+                        Εκδοτικός Οίκος 
+                    {{/unless}}  
+                    {{pageName}} 
+                {{#if category}} 
+                </a> > 
+                {{/if}} 
+
+                {{#if specificItem}}
+                    <a href="{{pageUrl}}">
+                {{/if}}
+                        {{category}}
+                {{#if specificItem}}
+                    </a> 
+                    > 
+                {{/if}} 
+                {{specificItem}} 
+            </span>
+            {{#if pageNo}}
+                <div class="page-numbers">
+                    <div>&lt;</div>
+                    {{#each pageNo}}
+                        <div> {{this}} </div>
+                    {{/each}}
+                    <div>></div>
+                </div>
+                {{#if books}} 
+                    {{#unless filtersOff}}
+                    <button class="mobile-filters-btn">ΦΙΛΤΡΑ</button>
+                        <div class="mobile-filters">
+                            <h4>ΦΙΛΤΡΑ ΑΝΑΖΗΤΗΣΗΣ</h4>
+                            <form method='GET' id="formFilters" onchange="this.submit()">
+                                {{#if greek_lit}}
+                                    <input type="checkbox" id="greek" name="Ελληνικά|original_lang">
+                                    <label for="greek">Ελληνική Λογοτεχνία</label>
+                                    <br>
+                                {{/if}}
+                                {{#if world_lit}}
+                                    <input type="checkbox" id="foreign" name="foreign|original_lang">
+                                    <label for="foreign">Παγκόσμια Λογοτεχνία</label>
+                                {{/if}}
+
+                                {{#if categories}}
+                                    <h5>Κατηγορία</h5>
+                                {{/if}}
+                                {{#each categories}}
+                                <input type="checkbox" id={{this.id}} name={{this.id}}|category>
+                                <label for={{this.id}}>{{this.category}}</label>
+                                <br>
+                                {{/each}}
+
+                                {{#if ages}}
+                                    <h5>Ηλικιακή ομάδα</h5>
+                                {{/if}}
+                                {{#each ages}}
+                                <input type="checkbox" id={{this.id}} name={{this.id}}|age>
+                                <label for={{this.id}}>{{this.age}}</label>
+                                <br>
+                                {{/each}}
+
+
+                                {{#if genres}}
+                                    <h5>Είδος</h5>
+                                {{/if}}
+                                {{#each genres}}
+                                <input type="checkbox" id={{this.id}} name={{this.id}}|genre>
+                                <label for={{this.id}}>{{this.genre}}</label>
+                                <br>
+                                {{/each}}
+
+                                {{#if subjects}}
+                                    <h5>Θεματική Κατηγορία</h5>
+                                {{/if}}
+                                {{#each subjects}}
+                                <input type="checkbox" id={{this.id}} name={{this.id}}|subj>
+                                <label for={{this.id}}>{{this.subj}}</label>
+                                <br>
+                                {{/each}}
+
+                                {{#if series}}
+                                    <h5>Λογοτεχνική Σειρά</h5>
+                                {{/if}}
+                                {{#each series}}
+                                <input type="checkbox" id={{this.id}} name={{this.id}}|series>
+                                <label for={{this.id}}>{{this.series}}</label>
+                                <br>
+                                {{/each}}
+
+                                {{#if desimo}}
+                                    <h5>Εξώφυλλο</h5>
+                                {{/if}}
+                                {{#each desimo}}
+                                <input type="checkbox" id={{this.id}} name={{this.id}}|desimo>
+                                <label for={{this.id}}>{{this.desimo}}</label>
+                                <br>
+                                {{/each}}
+                            </form>
+                        </div>
+                    {{/unless}}
+                {{/if}}
+            {{/if}}
+            {{{body}}}
+        </div>
+            {{>banners-mobile}}
+    
+    
+    </main>
+    {{> footer}}
+
+    <button id="top-btn"><i class="fa fa-caret-up"></i></button>
+    <script src="/javascripts/main.js"></script>
+</body>
+
+</html>

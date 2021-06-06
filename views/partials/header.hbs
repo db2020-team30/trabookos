@@ -1,0 +1,207 @@
+<header>
+    {{!-- <div id="tape-info">
+      Δωρεάν μεταφορικά για παραγγελίες άνω των 24.99€! | Τηλ: 2610 123 456   
+    </div>   --}}
+    <div class="header-container">
+      <!-- <img class="tape" id="tape1" src="img/tape.png">
+      <img class="tape" id="tape2" src="img/tape.png"> -->
+      <div id="top-left">
+        <button id="ham-btn">&#9776;</button>
+        <button id="mobile-search-btn">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+
+      <a href="/" id="logo">
+        <img class="logo_img" src="/images/trabookos_book.png" alt="Publishing house logo">
+      </a>
+
+      <a href="/" id="mobile-logo">
+        <img class="mobile-logo-img" src="/images/trabookos_mobile.png" alt="Publishing house logo">
+      </a>
+
+      <nav class="main-nav default">
+        <button id="escape">
+          &times;
+        </button>
+        <a href="/house">Ο Εκδοτικός Οίκος</a>
+        <div class="dropdown">
+          <button class="dropdown-btn">Βιβλία 
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <div class="dropdown-2">
+              <a href="/greek-lit" class="drop-btn2">Ελληνική Λογοτεχνία
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <div class="dropdown-container-2">
+                <a href="/greek-lit/novel">Μυθιστόρημα - Νουβέλα</a>
+                <a href="/greek-lit/pezografia">Πεζογραφία - Δοκίμια</a>
+                <a href="/greek-lit/poetry">Ποίηση</a>
+                <a href="/greek-lit/bios">Βιογραφίες - Μαρτυρίες</a>
+              </div>
+            </div>
+            <div class="dropdown-2">
+              <a href="/world-lit" class="drop-btn2">Παγκόσμια Λογοτεχνία
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <div class="dropdown-container-2">
+                <a href="/world-lit/novel">Μυθιστόρημα - Νουβέλα</a>
+                <a href="/world-lit/pezografia">Πεζογραφία - Δοκίμια</a>
+                <a href="/world-lit/poetry">Ποίηση</a>
+                <a href="/world-lit/bios">Βιογραφίες - Μαρτυρίες</a>
+              </div>
+            </div>
+            <div class="dropdown-2">
+              <a href="/children" class="drop-btn2">Παιδικά - Νεανικά
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <div class="dropdown-container-2">
+                <a href="/children/fairytales">Παραμύθια - Παιδικά εικονογραφημένα</a>
+                <a href="/children/children-books">Παιδικά βιβλία</a>
+                <a href="/children/teen-books">Εφηβικά - Νεανικά</a>
+              </div>
+            </div>
+            <div class="dropdown-2">
+              <a href="/science" class="drop-btn2">Επιστήμη - Χόμπι
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <div class="dropdown-container-2">
+                <a href="/science/scientific">Επιστημονικά βιβλία</a>
+                <a href="/science/hobbies">Πρακτικοί οδηγοί - Χόμπι</a>
+              </div>
+            </div>
+            <a href="/comics">Κόμιξ</a>
+          </div>
+        </div>
+        
+
+        <a href="/writers">Συγγραφείς</a>
+        <a href="/news">Τα νέα μας</a>
+        <div class="mobile-version-content">
+            <hr>
+            <a href="/newbooks">Νέες Κυκλοφορίες</a>
+            <a href="/bestsellers">Best sellers</a>
+            <a href="/sales">Προσφορές</a>
+            <a href="/ebooks">E-Books</a>
+        </div>
+      </nav>
+      <div class="panel-overlay"></div>
+      
+      <div id="top-right">
+        <div class="search-container">
+          <form method="GET" action="/search" id='search'>
+            <input type="text" placeholder="Αναζήτηση..." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+        {{#if user}}
+          <div class="logged-in icon-img" id='user'>
+            <a href="#" id="user-link"><img src="/images/logged-in-user.png" id='user' class='icon-img'></a>
+            <div class="user-panel">
+              <a href="#">Ο λογαριασμός μου</a>
+              <a href="/favourites">Λίστα αγαπημένων</a>
+              <a href="/logout">Αποσύνδεση</a>
+            </div>
+          </div>
+        {{/if}}
+        {{#unless user}}
+        <a href="#" id="user-link"><img src="/images/login.png" alt="Σύνδεση χρήστη" id='user' class='icon-img'></a>
+        {{/unless}}
+        <a href="#" id="cart-link">
+          <img src="/images/cart.png" alt="Καλάθι αγορών" id='cart' class='icon-img'>
+          <div id="total-books-counter">0</div>
+        </a>
+        
+        <div id="cart-panel">
+          <span></span>
+          <h4>Καλάθι</h4>
+          <div id="cart-panel-main"></div>
+          <div id="price"></div>
+          <a href="#" id="go-to-cart-btn">Ταμείο</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Login Dialogue -->
+    {{#unless user}}
+      <div id="login-window" class="login-dialogue">
+        <div>	<button title="Close" class="close-btn">&times;</button>
+          <div class="container">
+            <input type="radio" class="login-radio" name="login_registration" id="login" checked>
+            <input type="radio" class="reg-radio" name="login_registration" id="signUp">
+            <div class="login">
+                <h1 class="title">Καλωσόρισες!</h1>
+                <form action="/login" method="POST" id='login-form'>
+                    <div class="input-control">
+                        <input type="email" id="email" placeholder="E-mail" name='email' required>
+                    </div>
+        
+                    <div class="input-control">
+                        <input type="password" id="password" placeholder="Κωδικός πρόσβασης" name='pass' required>
+                    </div>
+        
+                    <div class="input-control">
+                        <button type="button" id='loginbtn'>ΣΥΝΔΕΣΗ</button>
+                    </div>
+                </form>
+        
+                <div class="footer">
+                    <span id='all-input-login-error' class="display-none">Συμπληρώστε όλα τα πεδία</span>
+                    <span id='wrong-data' class="display-none">Λάθος στοιχεία</span>
+                    <div><label for="signUp"><span>ΕΓΓΡΑΦΗ</span></label></div>
+                    <div><a href="#">Ξέχασα τον κωδικό μου</a></div>
+                </div>
+            </div>
+            <div class="register">
+                <h1 class="title">Εγγραφή</h1>
+                <form action="/newuser" method="POST" id="newUserForm">
+                  <div class="input-control">
+                      <input type="text" placeholder="Ονοματεπώνυμο" id="name" name='name' required>
+                  </div>
+                  <div class="input-control">
+                      <input type="email" placeholder="E-mail" id="email2" name='email' required>
+                  </div>
+                  
+                  <div class="input-control">
+                      <input type="text" placeholder="Όνομα χρήστη" id="usernamel2" name='user' required>
+                  </div>
+
+                  <div class="input-control">
+                      <label for="dob">Ημερομηνία Γέννησης</label>
+                      <input type="date" id="dob" name='dob' required>
+                  </div>
+                  <div class="input-control">
+                      <label for="password2">Νέος Κωδικός</label>
+                      <input type="password" placeholder="Δημιουργία κωδικού πρόσβασης" id="password2" name='pass'>
+                  </div>
+                  <div class="input-control">
+                      <input type="checkbox" id="agreement" name='newsletter'> <label for="agreement">Εγγραφή στο newsletter</label>
+                  </div>
+                  <div class="input-control">
+                      <button type="button" class="sing-up">ΕΓΓΡΑΦΕΙΤΕ ΤΩΡΑ!</button>
+                  </div>
+              </form>
+    
+                <div class="footer">
+                    <span id='all-input-error' class="display-none">Συμπληρώστε όλα τα πεδία σωστά</span>
+                    <span id='email-exist-error' class="display-none">To email υπάρχει είδη</span>
+                    <div><label for="login"><span class="sign-in">ΕΧΩ ΗΔΗ ΛΟΓΑΡΙΑΣΜΟ</span></label></div>
+                </div>
+                        
+            </div>
+                
+          </div>
+        </div>
+      </div>
+    {{/unless}}
+
+    <nav id="orangeNav">
+      <div class="search-container-mobile">
+        <form action="/search" id='search-mobile'  method="GET">
+          <input type="text" placeholder="Αναζήτηση..." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </nav>
+  </header>
