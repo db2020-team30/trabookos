@@ -109,7 +109,6 @@ exports.renderHome = (req, res) => {
                                         item.shortened = true;
                                     }
                                 });
-                                console.log(bestsellersRows)
                                 res.render('index', {newBooks: book_rows.slice(0, 12), bestsellers: bestsellersRows.slice(0, 12), articles: postRows});
                             }
                         }, 2);
@@ -587,7 +586,6 @@ exports.filters = (req, res) => {
                 let image, page;
                 image = "/images/" + optionArr[1] + "-background.jpg";
                 page = '/' + optionArr[1];
-               console.log("findBooks",books)
                 searchfilters(books,req.query,(err, book_rows) =>{
                     if(err){
                         console.log(err);
@@ -598,7 +596,6 @@ exports.filters = (req, res) => {
                         book_rows.forEach( item => {
                             bookIds.push(item.book_id);
                         })
-                        console.log("searchfilters",bookIds)
                         model.findFilters((err, subjArray, genreArray, seriesArray, ageArray, greek, foreign, categoryArray, desimoArray) => {
                             if (err) {
                                 console.log(err);
