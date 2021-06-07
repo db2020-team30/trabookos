@@ -1,0 +1,20 @@
+{{#each articles}}
+    <article class="news-tab-article">
+        <h1>
+            <a href="/article/{{this.id}}">
+                {{this.title}}
+            </a>
+        </h1>
+        {{#if this.upotitlos}}
+            <h2>
+                {{this.upotitlos}}
+            </h2>
+        {{/if}}
+        <h2>
+            {{this.eidos}}
+        </h2>
+        <img {{#if this.image}} src="/images/{{this.image}}" {{/if}} {{#unless this.image}} src="images/greek-lit-background.jpg" {{/unless}} alt="Εικόνα Βιβλιοπαρουσίασης" class="article-img">
+        <p class="pretty"> {{this.post_text}}
+        </p>
+    </article>
+{{/each}}

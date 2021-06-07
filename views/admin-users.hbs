@@ -1,0 +1,71 @@
+   
+    <section class="admin-post">
+      <h3 class="centered">Διαχειριστές</h3>
+      <table class="admin-table">
+        <tr>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th>Ενέργεια</th>
+        </tr>
+        {{#each admins}}
+            <td>{{this.username}}</td>
+            <td>{{this.email}}</td>
+            <td><button class='delete'><img src='/images/delete_icon.png'></img></button></td>
+        {{/each}}
+      </table>
+      <br>
+      <div class='admin-buttons'>
+        <button id='NewAdmin'>Προσθήκη νέου διαχειριστή</button>
+        <button id='ChangePass'>Αλλαγή του κωδικού μου</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="PopUpForm new-admin not-displayed">
+        <div>	<button id='btnCloseAdmin' title="Close" class="close-btn">&times;</button>
+          <div class="container">
+            <form class="admin-form" action="/newAdmin" method="POST">
+                <div class='title'>Στοιχεία νέου διαχειριστή</div>
+                <div class="FlexInput">
+                    <label>Email
+                      <input type="email" name="email" placeholder="E-mail (απαιτείται)" required>
+                    </label>
+                </div>
+                <div class="FlexInput">
+                    <label>Username
+                      <input type="text" name="username" placeholder="Username (απαιτείται)" required>
+                    </label>
+                    <label>Κωδικός πρόσβασης
+                      <input type="password" name="password" placeholder="Νέος κωδικός (απαιτείται)" required>
+                    </label>
+                </div>
+                <div id='submit'>
+                  <input type="submit">
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="PopUpForm new-pass not-displayed">
+        <div>	<button id='btnClosePass' title="Close" class="close-btn">&times;</button>
+          <div class="container">
+            <form class="admin-form" action="/newAdminPassword" method="POST">
+                <div class='title'>Αλλαγή κωδικού πρόσβασης</div>
+                <label>
+                  Προηγούμενος κωδικός πρόσβασης
+                  <input type="password" name="old_password" required>
+                </label>
+                <label>Νέος κωδικός πρόσβασης
+                  <input type="password" name="new_password"required>
+                </label>
+                <div id='submit'>
+                  <input type="submit">
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
