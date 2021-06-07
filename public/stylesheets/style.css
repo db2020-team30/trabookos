@@ -704,6 +704,12 @@ article h1 {
   display: flex;
   flex-direction: column;
 }
+
+.mobile-filters-btn {
+  margin-top: 1em;
+  cursor: pointer;
+}
+
 /* ------------Register tab--------------- */
 #register-cart img {
   width: 150px;
