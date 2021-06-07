@@ -559,6 +559,17 @@
       display: none;
     }
 
+    .dropdown-container-a-i {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .main-nav.mobile-open .dropdown-container-a-i i{
+      padding-right: 20px;
+    }
+
+
     /*Search Bar for mobile phones*/
   
     #orangeNav {

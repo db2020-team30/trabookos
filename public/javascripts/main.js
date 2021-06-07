@@ -1,40 +1,6 @@
 //"use strict";
 
 
-//Γραμμές 4-35 από το stackoverflow: https://stackoverflow.com/questions/20325763/browser-sessionstorage-share-between-tabs
-// transfers sessionStorage from one tab to another
-// var sessionStorage_transfer = function(event) {
-//     if(!event) { event = window.event; } // ie suq
-//     if(!event.newValue) return;          // do nothing if no value to work with
-//     if (event.key == 'getSessionStorage') {
-//       // another tab asked for the sessionStorage -> send it
-//       console.log("sending",JSON.stringify(sessionStorage))
-//       localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
-//       // the other tab should now have it, so we're done with it.
-//       //localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
-//     } else if (event.key == 'sessionStorage' && !sessionStorage.length) {
-//       // another tab sent data <- get it
-//       var data = JSON.parse(event.newValue);
-//       for (var key in data) {
-//         sessionStorage.setItem(key, data[key]);
-//       }
-//     }
-//   };
-  
-  // listen for changes to localStorage
-//   if(window.addEventListener) {
-//     window.addEventListener("storage", sessionStorage_transfer, false);
-//   } else {
-//     window.attachEvent("onstorage", sessionStorage_transfer);
-//   };
-  
-  
-  // Ask other tabs for session storage (this is ONLY to trigger event)
-//   if (!sessionStorage.length) {
-//     localStorage.setItem('getSessionStorage', 'foobar');
-//     localStorage.removeItem('getSessionStorage', 'foobar');
-//   };
-
 
 
 //Check if hover is possible
@@ -55,7 +21,7 @@ var panelOverlay = document.querySelector(".panel-overlay");
 var dropdowns = document.querySelectorAll(".dropdown");
 var dropdownBtns = document.querySelectorAll(".dropdown-btn");
 var dropdownContents = document.querySelectorAll(".dropdown-container");
-var dropdownBtn2 = document.querySelectorAll(".drop-btn2");
+var dropdownBtn2 = document.querySelectorAll(".dropdown-container-a-i .fa");
 var dropdown2 = document.querySelectorAll(".dropdown-2");
 var dropdownContent2 = document.querySelectorAll(".dropdown-container-2");
 var i;
@@ -93,7 +59,8 @@ dropdownBtns.forEach(item => item.addEventListener("click", function() {
 dropdownBtn2.forEach(item => item.addEventListener("click", function() {
         if (window.innerWidth <= 1024) {
             this.classList.toggle("active-mobile-2");
-            item.nextElementSibling.classList.toggle("mobile-open");
+            console.log(item.parentNode.parentNode.nextElementSibling)
+            item.parentNode.nextElementSibling.classList.toggle("mobile-open");
         }
     })
 );
@@ -496,16 +463,22 @@ hearts.forEach(item => item.addEventListener("change", function() {
 
 // --------------------Add action to formFilters------------------------
 const formFilters = document.querySelector("#formFilters");
+const formFiltersM = document.querySelector("#formFilters-m");
+
 if(formFilters){
     if(!window.location.href.includes('search') && !window.location.href.includes('filters')){
         formFilters.action = window.location.href +'/filters';
+        formFiltersM.action = window.location.href +'/filters';
     }else{
         let uri_dec = decodeURIComponent(window.location.href)
         if(window.location.href.includes('filters')){
             uri_dec.slice(0,uri_dec.indexOf('?'))
             formFilters.action = uri_dec.slice(0,uri_dec.indexOf('?'));
+            formFiltersM.action = uri_dec.slice(0,uri_dec.indexOf('?'));
+
         }else{
             formFilters.action = '/search/filters';
+            formFiltersM.action = '/search/filters';
         }
         uri_dec=uri_dec.slice(uri_dec.indexOf('?')+1)
         uri_Arr=uri_dec.split('&');
@@ -514,24 +487,37 @@ if(formFilters){
             tempArr=item.split('=');
             console.log(tempArr)
             if(tempArr[0]=='search'){
-                inp = document.createElement('input');
+                let   inp = document.createElement('input');
+                let   inpM = document.createElement('input');
                 inp.type= "hidden"
                 inp.name= tempArr[0]
                 inp.value= tempArr[1]
+                inpM.type= "hidden"
+                inpM.name= tempArr[0]
+                inpM.value= tempArr[1]
                 formFilters.appendChild(inp);
+                formFiltersM.appendChild(inpM);
             }else{
                 if(tempArr[0]!==("pagenum")){
                     console.log(tempArr)
                     if(tempArr[0].includes('Ελληνικά')){
-                        let temp_checked=document.getElementById('greek');
+                        let temp_checked=document.getElementById('greek');         
+                        let temp_checkedM=document.getElementById('greek-m');
                         temp_checked.checked=true;
+                        temp_checkedM.checked=true;
                     } else if(tempArr[0].includes('foreign')){
                         let temp_checked=document.getElementById('foreign');
+                        let temp_checkedM=document.getElementById('foreign-m');
                         temp_checked.checked=true;
+                        temp_checkedM.checked=true;
                     } else{
                         tempArr[0]=tempArr[0].slice(0,tempArr[0].indexOf('|'));
-                        let temp_checked=document.getElementById(tempArr[0]);
-                        temp_checked.checked=true;
+                        let temp_checked=document.getElementById(tempArr[0]);                   
+                        let temp_checkedM=document.getElementById(tempArr[0]+'-m');
+                        if(temp_checked){
+                            temp_checked.checked=true;
+                            temp_checkedM.checked=true;
+                        }
                     }
                 }
             }
@@ -543,78 +529,82 @@ if(formFilters){
 
 const newUserForm = document.querySelector("#newUserForm");
 
-document.querySelector("#newUserForm button").addEventListener('click', ()=>{
-    let toSent = {}
-    let name=document.querySelector("#name");
-    let email=document.querySelector("#email2");
-    let user=document.querySelector("#usernamel2");
-    let dob=document.querySelector("#dob");
-    let pass=document.querySelector("#password2");
-    let newsletter=document.querySelector("#agreement");
-    let flag=true;
-    [name,email,user,dob,pass,newsletter].forEach( item => {
-        if(!item.checkValidity()){
-            flag=false;
-        }
-    })
-    if(flag){
-        toSent.name=name.value;
-        toSent.email=email.value;
-        toSent.user=user.value;
-        toSent.dob=dob.value;
-        toSent.pass=pass.value;
-        toSent.newsletter=newsletter.value;
-        let toSentString =JSON.stringify(toSent)
-        fetch('/newuser',
-        {
-            method: 'POST',
-            body: toSentString,
-            headers: {'Content-Type': 'text/html'}
-        }).then(response => response.text()).then(res => {
-            if(res=='ok'){
-                window.location.reload(true);
-            } else{
-                document.querySelector("#all-input-error").setAttribute('class','display-none');
-                document.querySelector("#email-exist-error").removeAttribute('class');
+
+if(document.querySelector("#newUserForm button")){
+    document.querySelector("#newUserForm button").addEventListener('click', ()=>{
+        let toSent = {}
+        let name=document.querySelector("#name");
+        let email=document.querySelector("#email2");
+        let user=document.querySelector("#usernamel2");
+        let dob=document.querySelector("#dob");
+        let pass=document.querySelector("#password2");
+        let newsletter=document.querySelector("#agreement");
+        let flag=true;
+        [name,email,user,dob,pass,newsletter].forEach( item => {
+            if(!item.checkValidity()){
+                flag=false;
             }
         })
-    }else{
-        document.querySelector("#all-input-error").removeAttribute('class');
-    }
-})
-
-
-document.querySelector("#loginbtn").addEventListener('click', ()=>{
-    let toSent = {}
-    let email=document.querySelector("#email");
-    let pass=document.querySelector("#password");
-    let flag=true;
-    [email,pass].forEach( item => {
-        if(!item.checkValidity()){
-            flag=false;
+        if(flag){
+            toSent.name=name.value;
+            toSent.email=email.value;
+            toSent.user=user.value;
+            toSent.dob=dob.value;
+            toSent.pass=pass.value;
+            toSent.newsletter=newsletter.value;
+            let toSentString =JSON.stringify(toSent)
+            fetch('/newuser',
+            {
+                method: 'POST',
+                body: toSentString,
+                headers: {'Content-Type': 'text/html'}
+            }).then(response => response.text()).then(res => {
+                if(res=='ok'){
+                    window.location.reload(true);
+                } else{
+                    document.querySelector("#all-input-error").setAttribute('class','display-none');
+                    document.querySelector("#email-exist-error").removeAttribute('class');
+                }
+            })
+        }else{
+            document.querySelector("#all-input-error").removeAttribute('class');
         }
     })
-    if(flag){
-        toSent.email=email.value;
-        toSent.pass=pass.value;
-        let toSentString =JSON.stringify(toSent)
-        fetch('/login', {
-            method: 'POST',
-            body: toSentString,
-            headers: {'Content-Type': 'text/html'}
-        }).then(response => response.text()).then(res => {
-            if(res=='ok'){
-                window.location.reload(true);
-            } else{
-                document.querySelector("#all-input-login-error").setAttribute('class','display-none');
-                document.querySelector("#wrong-data").removeAttribute('class');
+}
+
+if(document.querySelector("#loginbtn")){
+    document.querySelector("#loginbtn").addEventListener('click', ()=>{
+        let toSent = {}
+        let email=document.querySelector("#email");
+        let pass=document.querySelector("#password");
+        let flag=true;
+        [email,pass].forEach( item => {
+            if(!item.checkValidity()){
+                flag=false;
             }
         })
-    }else{
-        document.querySelector("#all-input-login-error").removeAttribute('class');
-        document.querySelector("#wrong-data").setAttribute('class','display-none');
-    }
-})
+        if(flag){
+            toSent.email=email.value;
+            toSent.pass=pass.value;
+            let toSentString =JSON.stringify(toSent)
+            fetch('/login', {
+                method: 'POST',
+                body: toSentString,
+                headers: {'Content-Type': 'text/html'}
+            }).then(response => response.text()).then(res => {
+                if(res=='ok'){
+                    window.location.reload(true);
+                } else{
+                    document.querySelector("#all-input-login-error").setAttribute('class','display-none');
+                    document.querySelector("#wrong-data").removeAttribute('class');
+                }
+            })
+        }else{
+            document.querySelector("#all-input-login-error").removeAttribute('class');
+            document.querySelector("#wrong-data").setAttribute('class','display-none');
+        }
+    })
+}
 
 
 
@@ -688,4 +678,26 @@ if(document.querySelector(".mobile-filters-btn")){
             mobileFilters.setAttribute('class',"mobile-filters")
         }
     })
+}
+
+// ------------------------------------escape-filters for mobile-------------
+
+const escapeFilters=document.querySelector("#escape-filters")
+
+if(escapeFilters){
+    escapeFilters.addEventListener('click', () => {
+        escapeFilters.parentNode.classList.toggle("activate-filters")
+    })
+}
+
+//Register
+const registerCart = document.querySelector("#register-cart");
+const infoOfCart = document.querySelector("#cart-panel div");
+const priceOfCart = document.querySelector("#price");
+const finalOrderBtn = document.querySelector("#final-order");
+
+if( registerCart ){
+    registerCart.append(infoOfCart.cloneNode(true));
+    registerCart.append(priceOfCart.cloneNode(true));
+    registerCart.lastElementChild.innerHTML = "Σύνολο: " + totalPrice + '&#8364;'
 }

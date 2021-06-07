@@ -163,11 +163,34 @@
   }
   .mobile-filters.activate-filters{
     display: block;
-    position: absolute;
-    z-index: 120;
-    background-color: rgba(255, 255, 255, 0.328);
-    opacity: 1;
+    position: fixed;
+    top:0;
+    left:0;
+    overflow-y: scroll;
+    z-index: 300;
+    background: none;
+    background-color: #641206;
+    bottom: 0;
   }
+
+  .mobile-filters.activate-filters form{
+    color:rgb(245, 224, 204);
+  }
+
+  .mobile-filters.activate-filters h4{
+    color: wheat;
+  }
+
+  #escape-filters {
+    display: block;
+    border: none;
+    font-size: 1.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+  }
+
 
   .btn-div {
     width: 100%;
@@ -672,8 +695,48 @@ article h1 {
   cursor: pointer;
 }
 
-/* ------------------------------- pageNums---------------------------------------- */
 .curPage {
   font-weight: bold;
   color: rgb(167, 10, 10);
+}
+
+.pageNums-filtersbtn {
+  display: flex;
+}
+/* ------------Register tab--------------- */
+#register-cart img {
+  width: 150px;
+}
+
+#register-cart {
+  padding: 0 5em;
+}
+
+#register-cart h2{
+  text-align: center;
+}
+
+#register-cart .remove-item{
+  display: none;
+}
+
+#register-cart #price{
+  text-align: center;
+  margin: 1em;
+  font-weight: bold;
+}
+
+#final-order {
+  margin-left: calc(50% - 6em);
+  width: 12em;
+  padding: .2em 0;
+  font-size: 1em;
+  border: none;
+  background-color: black;
+  color: white;
+}
+
+#final-order:hover {
+  background-color: brown;
+  cursor: pointer;
 }
