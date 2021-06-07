@@ -6,7 +6,7 @@
           <th>Τίτλος</th>
           <th>Είδος</th>
           <th>Διαχειριστής</th>
-          <th colspan="2">Ενέργεια</th>
+          <th>Ενέργεια</th>
         </tr>
         {{#each posts}}
             <tr>
@@ -14,7 +14,6 @@
             <td> {{this.title}} </td>
             <td> {{this.eidos}} </td>
             <td> {{this.admin_mail}} </td>
-            <td><button class='edit'><img src='/images/edit_icon.png'></img></button></td>
             <td><button class='delete' id="delete-{{this.post_id}}"><img src='/images/delete_icon.png'></img></button></td>
             </tr>
         {{/each}}

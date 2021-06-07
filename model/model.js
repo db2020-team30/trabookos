@@ -7,8 +7,6 @@ const db_name = path.join(__dirname, "../data",'trabookos.db');
 
 exports.findBooks = (option, callback, bookIdArray = [], userEmail = "") => {
     let where;
-    console.log(option);
-    console.log(userEmail);
     if (option.includes('/sales')){
         where = "book.sale<>0";
     }
@@ -112,7 +110,6 @@ exports.findBooks = (option, callback, bookIdArray = [], userEmail = "") => {
         let sql;
         
         if (option.includes("/bestsellers")) {
-            console.log("hi")
             sql = "SELECT book.book_id,book.title,book.price,book.image,writer.name,writer.writer_id,sale FROM periexei JOIN (book JOIN (grafei JOIN writer on grafei.writer_id=writer.writer_id) on book.book_id=grafei.book_id) on periexei.book_id=book.book_id WHERE " + where +" ORDER BY book.book_id DESC";
         }
         else if (option.includes("/bios")) {
@@ -120,7 +117,6 @@ exports.findBooks = (option, callback, bookIdArray = [], userEmail = "") => {
         }
         else if (option.includes("/favourites")) {
             sql ="SELECT book.book_id,book.title,book.price,book.image,writer.name,writer.writer_id,sale FROM wishlist JOIN (book JOIN (grafei JOIN writer on grafei.writer_id=writer.writer_id) on book.book_id=grafei.book_id) on wishlist.book_id=book.book_id WHERE "+ where +" ORDER BY book.book_id DESC";
-            console.log(sql)
         }
         else {
             sql ="SELECT book.book_id,book.title,book.price,book.image,writer.name,writer.writer_id,sale FROM book JOIN (grafei JOIN writer on grafei.writer_id=writer.writer_id) on book.book_id=grafei.book_id WHERE "+ where +" ORDER BY book.book_id DESC";
@@ -465,7 +461,6 @@ exports.findVisitor= (email,pass,callback) => {
             callback(err, null,null);
         }
         else {
-            console.log(username)
             if(username){
                 sql ="SELECT email FROM admin where email=?";
                 let db = new sqlite3.Database(db_name);
@@ -687,11 +682,11 @@ exports.searchFilters = (books, params, callback) => {
                 ArrLang.push('<>');
             }
         }else if (item.cat == 'age'){
-            ArrAge.push(item.name.replace('_',' '));
+            ArrAge.push(item.name.replace(/_/g,' '));
         }else if (item.cat == 'series'){
-            ArrSeries.push(item.name.replace('_',' '));
+            ArrSeries.push(item.name.replace(/_/g,' '));
         }else if (item.cat == 'category'){
-            ArrCat.push(item.name.replace('_',' '));
+            ArrCat.push(item.name.replace(/_/g,' '));
         }
     })
     let where=" where ("
@@ -784,7 +779,6 @@ exports.searchFilters = (books, params, callback) => {
             books.forEach(item =>{
                 booksIds.push(item.book_id);
             })
-            console.log(booksIds)
             let i;
             rows.forEach( item => {
                 if(booksIds.includes(item.book_id)){
@@ -846,6 +840,29 @@ exports.newPassword = (body, email, callback) => {
     let sql ="UPDATE VISITOR SET password=? WHERE email=?";
     let db = new sqlite3.Database(db_name);
     db.get("SELECT password FROM visitor where email='" + email + "'", (err, ans) => {
+        if (err) {
+            db.close();
+            callback(err);
+        }
+        else {
+            if (body.old_password == ans.password) {
+                db.run(sql, [body.new_password, email])
+                db.close();
+                callback(null);
+            }
+            else {
+                db.close();
+                callback("wrongPassword");
+            }
+        }
+    })
+}
+
+exports.newOrder = (email, books, callback) => {
+    dateOfOrder = new Date()
+    let sql ="INSERT INTO order VALUES (?, ?)";
+    let db = new sqlite3.Database(db_name);
+    db.run("SELECT password FROM visitor where email='" + email + "'", (err, ans) => {
         if (err) {
             db.close();
             callback(err);

@@ -154,6 +154,12 @@
                 {{/if}} 
                 {{specificItem}} 
             </span>
+            {{#if books}} 
+                    {{#unless filtersOff}}
+                    <div class="pageNums-filtersbtn">
+                        <button class="mobile-filters-btn">ΦΙΛΤΡΑ</button>
+                    {{/unless}}
+            {{/if}}
             {{#if pageNo}}
                 <div class="page-numbers">
                     <div>&lt;</div>
@@ -164,26 +170,27 @@
                 </div>
                 {{#if books}} 
                     {{#unless filtersOff}}
-                    <button class="mobile-filters-btn">ΦΙΛΤΡΑ</button>
+                    </div>
                         <div class="mobile-filters">
+                            <button id="escape-filters"> &times;</button>
                             <h4>ΦΙΛΤΡΑ ΑΝΑΖΗΤΗΣΗΣ</h4>
-                            <form method='GET' id="formFilters" onchange="this.submit()">
+                            <form method='GET' id="formFilters-m" onchange="this.submit()">
                                 {{#if greek_lit}}
-                                    <input type="checkbox" id="greek" name="Ελληνικά|original_lang">
-                                    <label for="greek">Ελληνική Λογοτεχνία</label>
+                                    <input type="checkbox" id="greek-m" name="Ελληνικά|original_lang">
+                                    <label for="greek-m">Ελληνική Λογοτεχνία</label>
                                     <br>
                                 {{/if}}
                                 {{#if world_lit}}
-                                    <input type="checkbox" id="foreign" name="foreign|original_lang">
-                                    <label for="foreign">Παγκόσμια Λογοτεχνία</label>
+                                    <input type="checkbox" id="foreign-m" name="foreign|original_lang">
+                                    <label for="foreign-m">Παγκόσμια Λογοτεχνία</label>
                                 {{/if}}
 
                                 {{#if categories}}
                                     <h5>Κατηγορία</h5>
                                 {{/if}}
                                 {{#each categories}}
-                                <input type="checkbox" id={{this.id}} name={{this.id}}|category>
-                                <label for={{this.id}}>{{this.category}}</label>
+                                <input type="checkbox" id={{this.id}}-m name={{this.id}}|category>
+                                <label for={{this.id}}-m>{{this.category}}</label>
                                 <br>
                                 {{/each}}
 
@@ -191,8 +198,8 @@
                                     <h5>Ηλικιακή ομάδα</h5>
                                 {{/if}}
                                 {{#each ages}}
-                                <input type="checkbox" id={{this.id}} name={{this.id}}|age>
-                                <label for={{this.id}}>{{this.age}}</label>
+                                <input type="checkbox" id={{this.id}}-m name={{this.id}}|age>
+                                <label for={{this.id}}-m>{{this.age}}</label>
                                 <br>
                                 {{/each}}
 
@@ -201,8 +208,8 @@
                                     <h5>Είδος</h5>
                                 {{/if}}
                                 {{#each genres}}
-                                <input type="checkbox" id={{this.id}} name={{this.id}}|genre>
-                                <label for={{this.id}}>{{this.genre}}</label>
+                                <input type="checkbox" id={{this.id}}-m name={{this.id}}|genre>
+                                <label for={{this.id}}-m>{{this.genre}}</label>
                                 <br>
                                 {{/each}}
 
@@ -210,8 +217,8 @@
                                     <h5>Θεματική Κατηγορία</h5>
                                 {{/if}}
                                 {{#each subjects}}
-                                <input type="checkbox" id={{this.id}} name={{this.id}}|subj>
-                                <label for={{this.id}}>{{this.subj}}</label>
+                                <input type="checkbox" id={{this.id}}-m name={{this.id}}|subj>
+                                <label for={{this.id}}-m>{{this.subj}}</label>
                                 <br>
                                 {{/each}}
 
@@ -219,8 +226,8 @@
                                     <h5>Λογοτεχνική Σειρά</h5>
                                 {{/if}}
                                 {{#each series}}
-                                <input type="checkbox" id={{this.id}} name={{this.id}}|series>
-                                <label for={{this.id}}>{{this.series}}</label>
+                                <input type="checkbox" id={{this.id}}-m name={{this.id}}|series>
+                                <label for={{this.id}}-m>{{this.series}}</label>
                                 <br>
                                 {{/each}}
 
@@ -228,8 +235,8 @@
                                     <h5>Εξώφυλλο</h5>
                                 {{/if}}
                                 {{#each desimo}}
-                                <input type="checkbox" id={{this.id}} name={{this.id}}|desimo>
-                                <label for={{this.id}}>{{this.desimo}}</label>
+                                <input type="checkbox" id={{this.id}}-m name={{this.id}}|desimo>
+                                <label for={{this.id}}-m>{{this.desimo}}</label>
                                 <br>
                                 {{/each}}
                             </form>

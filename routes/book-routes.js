@@ -32,6 +32,9 @@ router.get('/banners',CheckLogIn , CheckAdmin, controller.renderAdmin);
 router.get('/stats',CheckLogIn , CheckAdmin, controller.renderAdmin);
 router.post('/newAdminPassword',CheckLogIn , CheckAdmin, controller.renderNewAdminPassword);
 router.get('/delete/:postId',CheckLogIn , CheckAdmin, controller.renderPostDelete);
+router.get('/register', controller.renderRegister);
+router.get('/newOrder', controller.newOrder);
+
 
 function CheckLogIn (req,res,next,) {
     if(req.session.MyTrabookosSession == undefined) {

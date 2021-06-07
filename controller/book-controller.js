@@ -415,17 +415,6 @@ exports.changeFavourites = (req, res) => {
     }
 }
 
-exports.newUser = (req, res) => {
-    model.createNewUser(req.body, (err , ans) => {
-        if(err){
-            console.log('failedCreateNewUser');
-            res.send(err);
-        } else {
-            res.send('ok');
-        }
-    })
-}
-
 exports.newPost = (req, res) => {
     model.createNewPost(req.body, (err , ans) => {
         if(err){
@@ -598,7 +587,7 @@ exports.filters = (req, res) => {
                 let image, page;
                 image = "/images/" + optionArr[1] + "-background.jpg";
                 page = '/' + optionArr[1];
-               
+               console.log("findBooks",books)
                 searchfilters(books,req.query,(err, book_rows) =>{
                     if(err){
                         console.log(err);
@@ -609,6 +598,7 @@ exports.filters = (req, res) => {
                         book_rows.forEach( item => {
                             bookIds.push(item.book_id);
                         })
+                        console.log("searchfilters",bookIds)
                         model.findFilters((err, subjArray, genreArray, seriesArray, ageArray, greek, foreign, categoryArray, desimoArray) => {
                             if (err) {
                                 console.log(err);
@@ -704,4 +694,20 @@ exports.renderNewAdminPassword = (req, res) => {
             res.redirect(req.url);
         }
     })
+}
+
+exports.renderRegister = (req, res) => {
+    console.log("renderRegister");
+    res.render('register', {layout : 'second-layout', user: req.session.MyTrabookosSession, pageName: "Ολοκλήρωση αγοράς"});
+}
+
+exports.newOrder = (req, res) => {
+    console.log("newOrder");
+    model.newOrder(req.MyTrabookosSession, books, (err) => {
+        if(err) {
+            res.send(err);
+        } else {
+            res.redirect(req.url);
+        }
+    });
 }
