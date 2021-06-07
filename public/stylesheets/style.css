@@ -686,7 +686,7 @@ article h1 {
   gap: 1em;
   width: 100%;
   justify-content: center;
-  margin: 1em;
+  margin: 1em 0;
 }
 
 .page-numbers div:hover {
@@ -702,6 +702,7 @@ article h1 {
 
 .pageNums-filtersbtn {
   display: flex;
+  flex-direction: column;
 }
 /* ------------Register tab--------------- */
 #register-cart img {
