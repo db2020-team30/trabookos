@@ -1,4 +1,6 @@
 [README.md](https://github.com/db2020-team30/trabookos/files/6605720/README.md)
+Η ομάδα: Ανθή Μπαλαδήμα, Αρτέμιος Σεμένογλου
+
 1) Εγκαταστήστε το vscode (https://code.visualstudio.com/)
 2) Εγκαταστήστε το Node.js (https://nodejs.org/en/)
 3)Ανοίξτε τον φάκελο απο το Vscode
