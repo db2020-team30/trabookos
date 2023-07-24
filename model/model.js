@@ -20,11 +20,7 @@ exports.findBooks = (option, callback, bookIdArray = [], userEmail = "") => {
     }
 
     else if (option.includes('/newbooks')){
-        let curYear = new Date().getFullYear();
-        where = "book.year LIKE '%" + curYear + "%'";
-        if(new Date().getMonth()<2){
-            where = where + "OR book.year LIKE '%" + (curYear-1) + "%'";
-        }
+        where = "book.year = (SELECT MAX(book.year) FROM book)";
     }
 
     else if (option.includes('/awarded')){
